@@ -1,5 +1,7 @@
 # utils
 
+[![Python package](https://github.com/Blanket58/utils/actions/workflows/python-package.yml/badge.svg)](https://github.com/Blanket58/utils/actions/workflows/python-package.yml)
+
 提供多种工具：
 - 简便连接阿里云数据库，运行多段或任意指定位置SQL并取回数据。
 - 自动任务管理器，自动重试、计时，任务运行成功/失败邮件自动通知。
