@@ -31,5 +31,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: dist/*.whl
-        tag_name: 3.0
-        body: "Release 3.0"
+        tag_name: 3.0.0
+        body: "Release 3.0.0"
