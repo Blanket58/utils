@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=77.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "utils"
+version = "3.0"
+authors = [
+    { name = "BI/GANG", email = "grants.tougher.0t@icloud.com" }
+]
+description = "Simple toolbox."
+readme = "README.md"
+license = "GPL-3.0-only"
+requires-python = ">=3.10, <=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "pandas >=2.0.0",
+  "numpy >=2.0.0",
+  "pyodps >=0.12.3",
+  "sqlparse >=0.5.3",
+  "decorator >=5.2.1",
+  "platformdirs >=4.3.8",
+  "sql_metadata >=2.17.0",
+  "lightgbm >=4.6.0"
+]
