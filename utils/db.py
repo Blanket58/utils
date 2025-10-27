@@ -17,7 +17,11 @@ class OdpsConnector:
 
     def __init__(self):
         """Start a session and create a cursor."""
-        options.sql.settings = {"odps.sql.allow.fullscan": "true", "odps.sql.validate.orderby.limit": "false"}
+        options.sql.settings = {
+            "odps.sql.allow.fullscan": "true",
+            "odps.sql.validate.orderby.limit": "false",
+            "odps.sql.udf.getjsonobj.new": "true"
+        }
         config = tomllib.load(Path(user_documents_dir(), "odps-dependencies", "odps_config.toml").open(mode="rb"))
         self.conn = dbapi.connect(ODPS(**config))
         self.cursor = self.conn.cursor()
