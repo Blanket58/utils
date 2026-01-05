@@ -5,10 +5,8 @@ import itertools
 import logging
 import time
 from operator import itemgetter
+from pathlib import PurePath
 from urllib.parse import quote_plus
-
-import numpy as np
-import requests
 
 
 class LoggerFactory:
@@ -92,12 +90,13 @@ def balance(index, value, group, drift=100, max_iter=500, max_exchange=10000, lo
     value : 1D array
         均分的值结果
     """
+    import numpy as np
+
     if not logger:
         logger = LoggerFactory.stream(balance)
 
     index = index.copy()
     value = value.copy()
-
     remainder = value.size % group
     if remainder != 0:
         index = np.append(index, [0] * (group - remainder))
@@ -190,6 +189,8 @@ def export_to_rule(booster):
 
 
 def dingbot(content, secret, access_token):
+    import requests
+
     timestamp = str(round(time.time() * 1000))
     secret_enc = secret.encode('utf-8')
     string_to_sign = '{}\n{}'.format(timestamp, secret)
@@ -216,3 +217,31 @@ def find_all_values_in_json(data, target_key):
     elif isinstance(data, list):
         for item in data:
             yield from find_all_values_in_json(item, target_key)
+
+
+def pdf2png(pdf_path, png_path, zoom=200):
+    """
+    Convert PDF document to PNG images.
+
+    Parameters
+    ----------
+    pdf_path: string
+        The path of the input PDF file.
+    png_path: string
+        The path of the output PNG file.
+    zoom: int
+        The higher the value, the higher the resolution and the crisper the image quality.
+    """
+    import fitz
+
+    doc = fitz.open(pdf_path)
+    total = doc.page_count
+    for pg in range(total):
+        page = doc[pg]
+        zoom = int(zoom)  # 值越大，分辨率越高，文件越清晰
+        rotate = int(0)
+        trans = fitz.Matrix(zoom / 100.0, zoom / 100.0).prerotate(rotate)
+        pm = page.get_pixmap(matrix=trans, alpha=False)
+        save = PurePath(png_path) / f'{pg+1}.png'
+        pm.save(save)
+    doc.close()
