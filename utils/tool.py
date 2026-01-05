@@ -238,7 +238,7 @@ def pdf2png(pdf_path, png_path, zoom=200):
     total = doc.page_count
     for pg in range(total):
         page = doc[pg]
-        zoom = int(zoom)  # 值越大，分辨率越高，文件越清晰
+        zoom = int(zoom)
         rotate = int(0)
         trans = fitz.Matrix(zoom / 100.0, zoom / 100.0).prerotate(rotate)
         pm = page.get_pixmap(matrix=trans, alpha=False)
